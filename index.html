@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Omar Elsawaf — Full-Stack Developer</title>
+<meta name="description" content="Omar Elsawaf is a full-stack developer in Cairo, Egypt, building web applications with React, TypeScript, Node.js and ASP.NET Core." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23b3401a'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' fill='%23f5f2ec' text-anchor='middle'%3EO%3C/text%3E%3C/svg%3E" />
+<style>
+:root{
+  --paper:#f5f2ec;
+  --paper-dim:#ede9e0;
+  --ink:#16140f;
+  --ink-soft:#4c4840;
+  --ink-faint:#8a857a;
+  --line:rgba(22,20,15,.16);
+  --line-strong:rgba(22,20,15,.4);
+  --accent:#b3401a;
+  --accent-soft:rgba(179,64,26,.09);
+  --serif:"Fraunces",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"Inter",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;z-index:1000;
+  opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:var(--accent);color:var(--paper)}
+a{color:inherit}
+
+/* ---------- header ---------- */
+.site-head{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem clamp(1.25rem,4vw,3rem);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.brand{font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:.01em;text-decoration:none}
+.brand em{font-style:italic;color:var(--accent)}
+.nav{display:flex;gap:clamp(.9rem,2.5vw,1.75rem);align-items:center}
+.nav a{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;color:var(--ink-soft);position:relative;padding:.2rem 0;
+}
+.nav a::after{
+  content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;
+  background:var(--accent);transition:width .25s ease;
+}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{width:100%}
+.status-pill{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line-strong);border-radius:999px;padding:.35rem .8rem;
+  color:var(--ink-soft);white-space:nowrap;
+}
+.status-pill .dot{width:7px;height:7px;border-radius:50%;background:#2e7d32;animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@media (max-width:760px){.nav{display:none}}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(1.25rem,4vw,3rem)}
+section{padding:clamp(4rem,9vw,7.5rem) 0;position:relative}
+.section-head{
+  display:flex;align-items:baseline;gap:1.25rem;
+  border-top:1px solid var(--ink);padding-top:1rem;margin-bottom:clamp(2.5rem,5vw,4rem);
+}
+.section-num{font-family:var(--mono);font-size:.8rem;color:var(--accent);letter-spacing:.1em}
+.section-title{font-family:var(--serif);font-weight:500;font-size:clamp(1.6rem,3.4vw,2.4rem);letter-spacing:-.01em}
+.section-note{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase;display:none}
+@media (min-width:760px){.section-note{display:block}}
+
+/* ---------- hero ---------- */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:6rem}
+.hero-kicker{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem;
+}
+.hero-kicker::before{content:"";width:2.5rem;height:1px;background:var(--accent)}
+.hero h1{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(3rem,10.5vw,7.5rem);
+  line-height:.98;letter-spacing:-.025em;
+}
+.hero h1 .ln2{display:block;font-style:italic;font-weight:300;color:var(--ink-soft)}
+.hero-sub{
+  max-width:34rem;margin-top:2rem;font-size:clamp(1rem,1.6vw,1.15rem);
+  color:var(--ink-soft);line-height:1.75;
+}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.5rem}
+.btn{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  text-decoration:none;padding:.95rem 1.6rem;border:1px solid var(--ink);
+  transition:background .25s,color .25s,transform .25s;display:inline-block;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-solid{background:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:var(--accent);border-color:var(--accent)}
+.btn-ghost{color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+.hero-meta{
+  margin-top:clamp(3rem,7vw,5rem);padding-top:1.5rem;border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;gap:1.5rem 3rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--ink-faint);
+}
+.hero-meta a{color:var(--ink-soft);text-decoration:none;border-bottom:1px solid var(--line-strong);transition:color .2s,border-color .2s}
+.hero-meta a:hover{color:var(--accent);border-color:var(--accent)}
+.hero-meta .lbl{color:var(--ink-faint);margin-right:.5rem;text-transform:uppercase;font-size:.65rem;letter-spacing:.15em}
+
+/* ---------- marquee ---------- */
+.marquee{
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  overflow:hidden;padding:.85rem 0;background:var(--paper-dim);
+}
+.marquee-track{display:flex;gap:3rem;width:max-content;animation:scroll 36s linear infinite}
+.marquee span{
+  font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-soft);white-space:nowrap;display:flex;align-items:center;gap:3rem;
+}
+.marquee span::after{content:"◆";font-size:.5rem;color:var(--accent)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* ---------- work ---------- */
+.project{
+  display:grid;grid-template-columns:1fr;gap:.75rem;
+  padding:clamp(1.75rem,3.5vw,2.5rem) 0;border-bottom:1px solid var(--line);
+  text-decoration:none;position:relative;
+}
+@media (min-width:820px){
+  .project{grid-template-columns:4.5rem 1.15fr 1.6fr auto;gap:2rem;align-items:baseline}
+}
+.project:first-of-type{border-top:1px solid var(--line)}
+.project-idx{font-family:var(--mono);font-size:.8rem;color:var(--ink-faint)}
+.project-title{
+  font-family:var(--serif);font-weight:500;letter-spacing:-.01em;
+  font-size:clamp(1.35rem,2.6vw,1.9rem);line-height:1.15;transition:color .2s;
+}
+a.project:hover .project-title{color:var(--accent)}
+.project-title .arrow{
+  display:inline-block;margin-left:.5rem;font-family:var(--mono);font-size:.8em;
+  transition:transform .25s;color:var(--accent);
+}
+a.project:hover .arrow{transform:translate(4px,-4px)}
+.project-desc{color:var(--ink-soft);font-size:.95rem;max-width:38rem}
+.project-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.65rem}
+.tag{
+  font-family:var(--mono);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
+  border:1px solid var(--line-strong);padding:.18rem .55rem;border-radius:999px;color:var(--ink-soft);
+}
+.project-side{font-family:var(--mono);font-size:.7rem;color:var(--ink-faint);text-align:right;letter-spacing:.06em;white-space:nowrap}
+
+/* ---------- experience ---------- */
+.xp-row{
+  display:grid;grid-template-columns:1fr;gap:.5rem;
+  padding:2rem 0;border-bottom:1px solid var(--line);
+}
+@media (min-width:820px){.xp-row{grid-template-columns:11rem 1fr;gap:2.5rem}}
+.xp-row:first-of-type{border-top:1px solid var(--line)}
+.xp-when{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);letter-spacing:.06em;padding-top:.35rem;line-height:1.9}
+.xp-role{font-family:var(--serif);font-size:clamp(1.2rem,2.2vw,1.55rem);font-weight:500;letter-spacing:-.01em}
+.xp-org{font-family:var(--mono);font-size:.75rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin:.3rem 0 .9rem}
+.xp-points{list-style:none;color:var(--ink-soft);font-size:.95rem}
+.xp-points li{padding-left:1.3rem;position:relative;margin-bottom:.4rem}
+.xp-points li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+
+/* ---------- training / skills ---------- */
+.duo{display:grid;grid-template-columns:1fr;gap:3rem}
+@media (min-width:900px){.duo{grid-template-columns:1fr 1fr;gap:4rem}}
+.train-item{padding:1.25rem 0;border-bottom:1px solid var(--line)}
+.train-item:first-child{border-top:1px solid var(--line)}
+.train-name{font-family:var(--serif);font-size:1.15rem;font-weight:500}
+.train-detail{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);letter-spacing:.05em;margin-top:.25rem}
+.skill-group{margin-bottom:1.75rem}
+.skill-label{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:.6rem;
+}
+.skill-line{font-family:var(--serif);font-size:clamp(1.05rem,1.8vw,1.3rem);font-weight:400;line-height:1.7;color:var(--ink)}
+.skill-line i{font-style:normal;color:var(--ink-faint);padding:0 .35rem}
+
+/* ---------- contact ---------- */
+.contact{
+  background:var(--ink);color:var(--paper);
+  margin-top:clamp(3rem,7vw,5rem);
+}
+.contact .section-head{border-top-color:var(--paper)}
+.contact .section-title{color:var(--paper)}
+.contact .section-num{color:var(--accent)}
+.contact-big{
+  font-family:var(--serif);font-weight:300;letter-spacing:-.02em;
+  font-size:clamp(1.7rem,5.5vw,3.8rem);line-height:1.15;max-width:22ch;
+}
+.contact-big a{text-decoration:none;border-bottom:2px solid var(--accent);transition:color .2s}
+.contact-big a:hover{color:var(--accent)}
+.contact-sub{color:rgba(245,242,236,.6);margin-top:1.5rem;max-width:36rem}
+.contact-links{
+  display:flex;flex-wrap:wrap;gap:1.5rem 3rem;margin-top:3rem;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;
+}
+.contact-links a{
+  color:rgba(245,242,236,.75);text-decoration:none;
+  border-bottom:1px solid rgba(245,242,236,.3);padding-bottom:.2rem;transition:color .2s,border-color .2s;
+}
+.contact-links a:hover{color:var(--paper);border-color:var(--accent)}
+.contact-links .k{color:rgba(245,242,236,.4);margin-right:.6rem;text-transform:uppercase;font-size:.62rem;letter-spacing:.18em}
+.footer{
+  display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;
+  padding:2rem clamp(1.25rem,4vw,3rem);border-top:1px solid rgba(245,242,236,.15);
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(245,242,236,.4);background:var(--ink);
+}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .marquee-track{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <a class="brand" href="#top">Omar <em>Elsawaf</em></a>
+  <nav class="nav">
+    <a href="#work">Work</a>
+    <a href="#experience">Experience</a>
+    <a href="#background">Background</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <span class="status-pill"><span class="dot"></span>Open to junior roles</span>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero wrap">
+    <p class="hero-kicker">Full-Stack Developer · Cairo, Egypt</p>
+    <h1>Omar<span class="ln2">Elsawaf</span></h1>
+    <p class="hero-sub">
+      I build web applications end to end — <strong>React and TypeScript</strong> interfaces on the front,
+      <strong>Node.js and ASP.NET Core</strong> services on the back, and databases designed to hold up in production.
+      Trained at <strong>ITI</strong> and <strong>Digilians</strong>, most recently developing SAP solutions at
+      <strong>ECM</strong>. Now looking for a junior full-stack role or paid internship.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-solid" href="#work">See selected work</a>
+      <a class="btn btn-ghost" href="mailto:alsawaf.3mor@gmail.com">alsawaf.3mor@gmail.com</a>
+    </div>
+    <div class="hero-meta">
+      <span><span class="lbl">GitHub</span><a href="https://github.com/OmarELswaf" target="_blank" rel="noopener">github.com/OmarELswaf</a></span>
+      <span><span class="lbl">LinkedIn</span><a href="https://www.linkedin.com/in/omarelswaf/" target="_blank" rel="noopener">in/omarelswaf</a></span>
+      <span><span class="lbl">Phone</span><a href="tel:+201032442468">+20 103 244 2468</a></span>
+      <span><span class="lbl">Base</span>Cairo, Egypt</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>React</span><span>TypeScript</span><span>Node.js</span><span>Express</span><span>ASP.NET Core</span><span>MongoDB</span><span>SQL Server</span><span>PostgreSQL</span><span>Tailwind CSS</span><span>Docker</span><span>Git</span><span>REST APIs</span>
+      <span>React</span><span>TypeScript</span><span>Node.js</span><span>Express</span><span>ASP.NET Core</span><span>MongoDB</span><span>SQL Server</span><span>PostgreSQL</span><span>Tailwind CSS</span><span>Docker</span><span>Git</span><span>REST APIs</span>
+    </div>
+  </div>
+
+  <!-- WORK -->
+  <section id="work" class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Selected Work</h2>
+      <span class="section-note">Six projects · all code on GitHub</span>
+    </div>
+
+    <a class="project reveal" href="https://github.com/Hossam-hassan-h/sanda-front" target="_blank" rel="noopener">
+      <span class="project-idx">01</span>
+      <h3 class="project-title">Sanda — Workforce Management<span class="arrow">↗</span></h3>
+      <div>
+        <p class="project-desc">
+          A MERN-stack platform connecting companies with workers. RESTful APIs for jobs,
+          attendance and payments, JWT authentication with role-based access control,
+          QR-code attendance check-in, and PWA features for a mobile-first experience.
+        </p>
+        <div class="project-tags">
+          <span class="tag">MongoDB</span><span class="tag">Express</span><span class="tag">React</span><span class="tag">Node.js</span><span class="tag">JWT · RBAC</span><span class="tag">PWA</span>
+        </div>
+      </div>
+      <span class="project-side">Team project<br />public frontend</span>
+    </a>
+
+    <a class="project reveal" href="https://github.com/OmarELswaf/task-management" target="_blank" rel="noopener">
+      <span class="project-idx">02</span>
+      <h3 class="project-title">Task Management App<span class="arrow">↗</span></h3>
+      <div>
+        <p class="project-desc">
+          Project and task manager — React 18 + TypeScript on a fully local Supabase stack
+          (PostgreSQL 17, GoTrue, PostgREST, Kong gateway) orchestrated with Docker Compose.
+          PostgreSQL row-level security isolates every user's data, and 44 Vitest tests
+          cover auth, CRUD and filtering flows.
+        </p>
+        <div class="project-tags">
+          <span class="tag">React 18</span><span class="tag">TypeScript</span><span class="tag">PostgreSQL · RLS</span><span class="tag">Supabase</span><span class="tag">Docker Compose</span><span class="tag">Vitest</span>
+        </div>
+      </div>
+      <span class="project-side">44 tests<br />passing</span>
+    </a>
+
+    <a class="project reveal" href="https://github.com/OmarELswaf/Shipping-System" target="_blank" rel="noopener">
+      <span class="project-idx">03</span>
+      <h3 class="project-title">Shipping Management System<span class="arrow">↗</span></h3>
+      <div>
+        <p class="project-desc">
+          ASP.NET Core MVC application with Entity Framework Core: CRUD for shipments and
+          user management, authentication with role-based authorization, and a responsive
+          Bootstrap interface.
+        </p>
+        <div class="project-tags">
+          <span class="tag">ASP.NET Core MVC</span><span class="tag">EF Core</span><span class="tag">SQL Server</span><span class="tag">Bootstrap</span>
+        </div>
+      </div>
+      <span class="project-side">ITI .NET<br />track project</span>
+    </a>
+
+    <a class="project reveal" href="https://github.com/OmarELswaf/elkbany" target="_blank" rel="noopener">
+      <span class="project-idx">04</span>
+      <h3 class="project-title">Al-Qabbani Company Profile<span class="arrow">↗</span></h3>
+      <div>
+        <p class="project-desc">
+          Arabic (RTL) company profile website for 2026, built with React, Vite and
+          Framer Motion — animated sections, Arabic typography (Cairo &amp; Tajawal),
+          fully right-to-left layout.
+        </p>
+        <div class="project-tags">
+          <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Framer Motion</span><span class="tag">Arabic RTL</span>
+        </div>
+      </div>
+      <span class="project-side">Client-style<br />website</span>
+    </a>
+
+    <a class="project reveal" href="https://github.com/OmarELswaf/-salary-app" target="_blank" rel="noopener">
+      <span class="project-idx">05</span>
+      <h3 class="project-title">Salary Manager — مدير الرواتب<span class="arrow">↗</span></h3>
+      <div>
+        <p class="project-desc">
+          Arabic payroll manager: an employee and salary administration interface with
+          dashboard statistics, built as a right-to-left single-page app with a custom
+          Cairo-font design system.
+        </p>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span><span class="tag">CSS</span><span class="tag">Arabic RTL</span><span class="tag">Dashboard</span>
+        </div>
+      </div>
+      <span class="project-side">Personal<br />tool</span>
+    </a>
+
+    <div class="project reveal" role="group">
+      <span class="project-idx">06</span>
+      <h3 class="project-title">Real-Time News &amp; Data Aggregation</h3>
+      <div>
+        <p class="project-desc">
+          Full-stack app integrating live public APIs — news, weather, sports and currency —
+          with a responsive HTML/CSS/JavaScript front end rendering real-time data.
+        </p>
+        <div class="project-tags">
+          <span class="tag">JavaScript</span><span class="tag">REST APIs</span><span class="tag">HTML · CSS</span><span class="tag">Live data</span>
+        </div>
+      </div>
+      <span class="project-side">Full-stack<br />APIs</span>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experience</h2>
+      <span class="section-note">2024 — 2025</span>
+    </div>
+
+    <div class="xp-row reveal">
+      <div class="xp-when">Mar 2025 —<br />Jun 2025</div>
+      <div>
+        <h3 class="xp-role">SAP Developer (Junior / Trainee)</h3>
+        <p class="xp-org">ECM</p>
+        <ul class="xp-points">
+          <li>Developed and customized SAP modules based on business requirements.</li>
+          <li>Supported implementation and maintenance of SAP solutions in enterprise systems.</li>
+          <li>Debugged and resolved issues in SAP workflows and processes.</li>
+          <li>Worked with IT and business teams to improve system efficiency and data flow.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="xp-row reveal">
+      <div class="xp-when">Apr 2024 —<br />Jan 2025</div>
+      <div>
+        <h3 class="xp-role">IT Support / Junior Software Developer</h3>
+        <p class="xp-org">El-Mesery Group for Textile &amp; Weaving</p>
+        <ul class="xp-points">
+          <li>Provided technical support for internal systems and employees.</li>
+          <li>Maintained and troubleshot IT infrastructure and network issues.</li>
+          <li>Supported software tools used in production and administrative departments.</li>
+          <li>Contributed to development and system-improvement tasks under supervision.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACKGROUND -->
+  <section id="background" class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Background</h2>
+      <span class="section-note">Training · Education · Skills</span>
+    </div>
+
+    <div class="duo">
+      <div class="reveal">
+        <div class="train-item">
+          <p class="train-name">Digilians — Professional React Web Development</p>
+          <p class="train-detail">Jan 2026 — Jul 2026 · Military Academy</p>
+        </div>
+        <div class="train-item">
+          <p class="train-name">Information Technology Institute (ITI) — Full-Stack .NET Track</p>
+          <p class="train-detail">Nov 2023 — Mar 2024</p>
+        </div>
+        <div class="train-item">
+          <p class="train-name">BSc Computer Science — Modern Academy University</p>
+          <p class="train-detail">Class of 2021</p>
+        </div>
+        <div class="train-item">
+          <p class="train-name">Languages</p>
+          <p class="train-detail">Arabic (native) · English (intermediate)</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="skill-group">
+          <p class="skill-label">Frontend</p>
+          <p class="skill-line">React.js<i>·</i>Next.js<i>·</i>TypeScript<i>·</i>JavaScript<i>·</i>Tailwind CSS<i>·</i>Bootstrap</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-label">Backend</p>
+          <p class="skill-line">Node.js<i>·</i>Express.js<i>·</i>ASP.NET Core</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-label">Database</p>
+          <p class="skill-line">MongoDB<i>·</i>SQL Server<i>·</i>PostgreSQL</p>
+        </div>
+        <div class="skill-group">
+          <p class="skill-label">Tools</p>
+          <p class="skill-line">Git<i>·</i>Docker<i>·</i>Vitest</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Contact</h2>
+      </div>
+      <p class="contact-big reveal">
+        Have a junior full-stack role or internship?
+        <a href="mailto:alsawaf.3mor@gmail.com">Let's talk.</a>
+      </p>
+      <p class="contact-sub reveal">
+        I'm based in Cairo and open to on-site, hybrid and remote roles — in Egypt, Saudi Arabia, or anywhere remote.
+      </p>
+      <div class="contact-links reveal">
+        <a href="mailto:alsawaf.3mor@gmail.com"><span class="k">Email</span>alsawaf.3mor@gmail.com</a>
+        <a href="tel:+201032442468"><span class="k">Phone</span>+20 103 244 2468</a>
+        <a href="https://www.linkedin.com/in/omarelswaf/" target="_blank" rel="noopener"><span class="k">LinkedIn</span>in/omarelswaf</a>
+        <a href="https://github.com/OmarELswaf" target="_blank" rel="noopener"><span class="k">GitHub</span>OmarELswaf</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <span>© <span id="yr">2026</span> Omar Elsawaf</span>
+  <span>Designed &amp; built by Omar Elsawaf · Cairo</span>
+</footer>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(function(e){ e.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  els.forEach(function(e){ io.observe(e); });
+})();
+</script>
+</body>
+</html>
